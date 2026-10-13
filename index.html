@@ -378,6 +378,8 @@ setInterval(() => { if (!st) return; let i = 0;
 st = fresh(); render();
 try {
   mapData = await getMapData(MAP);
+  const mapEl = document.getElementById('map');
+  for (let i = 0; i < 300 && (!mapEl.clientWidth || !mapEl.clientHeight); i++) await new Promise(r => setTimeout(r, 100));
   mapView = await show3dMap(document.getElementById('map'), mapData);
   S.forEach(r => { const sp = mapData.getById('space', r[3]); if (sp) { spaceObj[r[0]] = sp; roleBySpace[sp.id] = r[0]; } });
   const poi = mapData.getById('point-of-interest', ENTRANCE_POI); entrance = poi ? poi.coordinate : Object.values(spaceObj)[0];
